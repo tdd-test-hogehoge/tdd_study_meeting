@@ -1,4 +1,4 @@
-export default class Franc {
+export default class Doller {
   private amount = 0;
 
   constructor(amount: number) {
@@ -6,10 +6,10 @@ export default class Franc {
   }
 
   times(multiplier: number) {
-    return new Franc(this.amount * multiplier);
+    return new Doller(this.amount * multiplier);
   }
 
-  equals(object: Franc) {
+  equals(object: Doller) {
     return this.amount === object.amount;
   }
 }
