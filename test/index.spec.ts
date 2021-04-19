@@ -1,5 +1,5 @@
-import Dollar from "../src/index";
-import Franc from "../src/franc";
+import Dollar from "../src/Dollar";
+import Franc from "../src/Franc";
 
 describe("moneyTest", () => {
   it("testMultiplication", () => {
