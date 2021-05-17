@@ -19,4 +19,8 @@ describe("moneyTest", () => {
     expect(five.times(2)).toEqual(Money.franc(10));
     expect(five.times(3)).toEqual(Money.franc(15));
   });
+  it("testCurrency", () => {
+    expect(Money.dollar(1).currency).toBe("USD");
+    expect(Money.franc(1).currency).toBe("CHF");
+  });
 });
