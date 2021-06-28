@@ -1,4 +1,4 @@
-export class Money {
+export class Money implements Expression {
   protected amount!: number;
   protected _currency!: string;
 
@@ -25,5 +25,17 @@ export class Money {
 
   times(multiplier: number): Money {
     return new Money(this.amount * multiplier, this.currency);
+  }
+
+  plus(addend: Money): Expression {
+    return new Money(this.amount + addend.amount, this.currency);
+  }
+}
+
+interface Expression {}
+
+export class Bank {
+  reduce(source: Expression, to: string): Money {
+    return Money.dollar(10);
   }
 }
