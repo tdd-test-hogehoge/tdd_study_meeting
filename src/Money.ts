@@ -1,9 +1,12 @@
+import { Expression } from './Expression'
+import { Sum } from './Sum'
+
 export class Money implements Expression {
-  protected amount!: number;
-  protected _currency!: string;
+  private _amount: number;
+  private _currency: string;
 
   constructor(amount: number, currency: string) {
-    this.amount = amount;
+    this._amount = amount;
     this._currency = currency;
   }
 
@@ -18,24 +21,24 @@ export class Money implements Expression {
   static franc(amount: number): Money {
     return new Money(amount, "CHF");
   }
-
-  get currency(): string {
+  
+  get amount() {
+    return this._amount;
+  }
+  
+  get currency() {
     return this._currency;
   }
-
+  
   times(multiplier: number): Money {
     return new Money(this.amount * multiplier, this.currency);
   }
 
   plus(addend: Money): Expression {
-    return new Money(this.amount + addend.amount, this.currency);
+    return new Sum(this, addend);
   }
-}
 
-interface Expression {}
-
-export class Bank {
-  reduce(source: Expression, to: string): Money {
-    return Money.dollar(10);
+  reduce(to: string): Money {
+    return this;
   }
 }
