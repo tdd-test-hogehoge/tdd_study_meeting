@@ -1,6 +1,7 @@
 import { Money } from "../src/Money";
 import { Bank } from '../src/Bank'
 import { Sum } from '../src/Sum'
+import { Expression } from "../src/Expression";
 
 describe("moneyTest", () => {
   it("testMultiplication", () => {
@@ -48,4 +49,24 @@ describe("moneyTest", () => {
     const result = bank.reduce(Money.dollar(1), "USD");
     expect(Money.dollar(1)).toEqual(result);
   });
+
+  it("testReduceMoneyDifferentCurrency", () => {
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const result = bank.reduce(Money.franc(2), "USD");
+    expect(Money.dollar(1)).toEqual(result);
+  });
+
+  it("testIdentityRate", () => {
+    expect(1).toEqual(new Bank().rate("USD", "USD"));
+  });
+
+  it("testMixedAddition", () => {
+    const fiveBucks = Money.dollar(5) as Expression;
+    const tenFrancs = Money.franc(10) as Expression;
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+    expect(Money.dollar(10)).toEqual(result);
+  })
 });
